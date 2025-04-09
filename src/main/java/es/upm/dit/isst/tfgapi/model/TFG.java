@@ -1,31 +1,38 @@
 package es.upm.dit.isst.tfgapi.model;
 
 import jakarta.persistence.*;
-import java.io.Serializable;
 
 @Entity
-public class TFG implements Serializable {
+public class TFG {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String alumno; // e-mail del alumno, clave primaria
 
+    private String tutor;   // e-mail del profesor
     private String titulo;
     private String resumen;
-    private double calificacion;
-    private boolean mencionHonorifica;
 
     @Enumerated(EnumType.STRING)
-    private Estado estado;
+    private Estado status;
 
-    // Constructores
-    public TFG() {
-        
-    }
+    @Lob
+    private byte[] memoria;
+
+    private Double calificacion;
+    private Boolean matriculaHonor;
+
+    @ManyToOne
+    private Sesion sesion;
+
+    public TFG() {}
 
     // Getters y setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+
+    public String getAlumno() { return alumno; }
+    public void setAlumno(String alumno) { this.alumno = alumno; }
+
+    public String getTutor() { return tutor; }
+    public void setTutor(String tutor) { this.tutor = tutor; }
 
     public String getTitulo() { return titulo; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
@@ -33,12 +40,18 @@ public class TFG implements Serializable {
     public String getResumen() { return resumen; }
     public void setResumen(String resumen) { this.resumen = resumen; }
 
-    public double getCalificacion() { return calificacion; }
-    public void setCalificacion(double calificacion) { this.calificacion = calificacion; }
+    public Estado getStatus() { return status; }
+    public void setStatus(Estado status) { this.status = status; }
 
-    public boolean isMencionHonorifica() { return mencionHonorifica; }
-    public void setMencionHonorifica(boolean mencionHonorifica) { this.mencionHonorifica = mencionHonorifica; }
+    public byte[] getMemoria() { return memoria; }
+    public void setMemoria(byte[] memoria) { this.memoria = memoria; }
 
-    public Estado getEstado() { return estado; }
-    public void setEstado(Estado estado) { this.estado = estado; }
+    public Double getCalificacion() { return calificacion; }
+    public void setCalificacion(Double calificacion) { this.calificacion = calificacion; }
+
+    public Boolean getMatriculaHonor() { return matriculaHonor; }
+    public void setMatriculaHonor(Boolean matriculaHonor) { this.matriculaHonor = matriculaHonor; }
+
+    public Sesion getSesion() { return sesion; }
+    public void setSesion(Sesion sesion) { this.sesion = sesion; }
 }

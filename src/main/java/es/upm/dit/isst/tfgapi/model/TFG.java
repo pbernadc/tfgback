@@ -1,28 +1,44 @@
 package es.upm.dit.isst.tfgapi.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 
 @Entity
-public class TFG {
+public class TFG implements Serializable {
 
     @Id
-    private String alumno; // e-mail del alumno, clave primaria
+    @Email
+    private String alumno;
 
-    private String tutor;   // e-mail del profesor
+    @Email
+    @NotEmpty
+    private String tutor;
+
+    @NotEmpty
     private String titulo;
-    private String resumen;
 
-    @Enumerated(EnumType.STRING)
+    private String resumen;
     private Estado status;
 
+    @JsonIgnore
     @Lob
     private byte[] memoria;
 
+    @PositiveOrZero
+    @DecimalMax("10.0")
     private Double calificacion;
+
     private Boolean matriculaHonor;
 
     @ManyToOne
     private Sesion sesion;
+ 
+
+    // getters, setters, constructor vacío, constructor completo...
+
+
 
     public TFG() {}
 

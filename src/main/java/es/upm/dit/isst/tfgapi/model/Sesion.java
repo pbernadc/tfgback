@@ -1,29 +1,50 @@
 package es.upm.dit.isst.tfgapi.model;
 
 import jakarta.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
 @Entity
-public class Sesion implements Serializable {
+public class Sesion {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private Date fecha;
     private String lugar;
+    private String fecha; // Podrías usar `LocalDate` si lo prefieres
 
-    // Constructores
-    public Sesion() {}
+    @OneToMany(mappedBy = "sesion")
+    private List<TFG> tfgs;
 
-    // Getters y setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    // Getters y Setters
+    public Long getId() {
+        return id;
+    }
 
-    public Date getFecha() { return fecha; }
-    public void setFecha(Date fecha) { this.fecha = fecha; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getLugar() { return lugar; }
-    public void setLugar(String lugar) { this.lugar = lugar; }
+    public String getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public List<TFG> getTfgs() {
+        return tfgs;
+    }
+
+    public void setTfgs(List<TFG> tfgs) {
+        this.tfgs = tfgs;
+    }
 }
